@@ -1,5 +1,0 @@
-Nama Latihan: Web-Bootstrap
-Nama Repository: Web-Bootstrap
-URL Repository: https://github.com/Christian190406/Web-Bootstrap.git
-Branch: main
-Deskripsi: Website portofolio pribadi menggunakan HTML, CSS, JavaScript, dan Bootstrap
