@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christian Surya S | Mechatronics Portfolio</title>
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap5.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -321,19 +321,15 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="contactMessage" class="form-label">
-                                    Pesan
-                                </label>
-                                <textarea id="contactMessage" name="message" class="form-control" rows="5"
-                                    placeholder="Tuliskan pesan kamu..." required></textarea>
-                            </div>
-
-                            <div class="col-12">
                                 <div class="text-center mt-3">
-                                    <button type="submit" class="btn btn-orange">Kirim Pesan</button>
-
+                                    <button type="submit" class="btn btn-orange">
+                                        Kirim Pesan
+                                    </button>
                                 </div>
-                    </form>
+                            </div>
+                            
+                            </div> <!-- Penutup row g-3 -->
+                            </form>
 
                     <p class="contact-note mt-3">
                         Catatan: formulir ini masih berupa tampilan.
@@ -355,68 +351,9 @@
         </div>
     </footer>
 
-    <!-- BOOTSTRAP JAVASCRIPT -->
-    <script src="assets/js/chart1.js"></script>
-
-    <!-- CHART.JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-    <!-- HERO SLIDER -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const slider = document.getElementById("homeSlider");
-
-            if (slider && typeof bootstrap !== "undefined") {
-                const carousel = bootstrap.Carousel.getOrCreateInstance(
-                    slider,
-                    {
-                        interval: 5000,
-                        ride: "carousel",
-                        pause: false,
-                        wrap: true
-                    }
-                );
-
-                carousel.cycle();
-            }
-        });
-    </script>
-
-    <!-- GRAFIK PERFORMANCE -->
-
-    <script>
-        const data = {
-            labels: [
-                'Red',
-                'Blue',
-                'Yellow'
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [300, 50, 100],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ],
-                hoverOffset: 4
-            }]
-        };
-
-        const config = {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true
-            }
-        };
-
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
-    </script>
+    <script src="assets/js/bootstrap5.bundle.min.js"></script>
+    <script src="assets/js/chart2.js"></script>
+    <script src="assets/js/script.js"></script>
 
 </body>
 
