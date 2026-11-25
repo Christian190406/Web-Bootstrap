@@ -1,5 +1,14 @@
-Nama Latihan: Web-Bootstrap
-Nama Repository: Web-Bootstrap
-URL Repository: https://github.com/Christian190406/Web-Bootstrap.git
-Branch: main
-Deskripsi: Website portofolio pribadi menggunakan HTML, CSS, JavaScript, dan Bootstrap
+
+Nama        : Christian Surya Saputro
+NIM         : 20246015
+Program     : Web-PHP
+Branch      : Web-PHP
+
+Repository GitHub:
+https://github.com/Christian190406/latihan-finalweb.git
+
+Database:
+portfolio_web
+
+File SQL:
+portfolio_web.sql

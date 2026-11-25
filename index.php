@@ -1,3 +1,6 @@
+<?php
+require_once 'koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -190,54 +193,64 @@
         </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services" class="section-padding">
-        <div class="container">
+    
+<!-- SERVICES -->
+<section id="services" class="section-padding">
+    <div class="container">
 
-            <div class="section-heading text-center">
-                <span class="section-label">WHAT I DO</span>
-                <h2>My Services</h2>
-                <p>Beberapa bidang yang saya pelajari dan kembangkan.</p>
-            </div>
-
-            <div class="row g-4 mt-3">
-
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <div class="service-icon">01</div>
-                        <h4>Web Development</h4>
-                        <p>
-                            Membuat website menggunakan HTML, CSS,
-                            Bootstrap, dan teknologi web lainnya.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <div class="service-icon">02</div>
-                        <h4>Mechatronics</h4>
-                        <p>
-                            Mempelajari sistem mekanik, elektronika,
-                            sensor, aktuator, dan sistem kendali.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <div class="service-icon">03</div>
-                        <h4>Programming</h4>
-                        <p>
-                            Mengembangkan kemampuan pemrograman
-                            untuk menyelesaikan berbagai permasalahan.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
+        <div class="section-heading text-center">
+            <span class="section-label">WHAT I DO</span>
+            <h2>My Services</h2>
+            <p>Beberapa bidang yang saya pelajari dan kembangkan.</p>
         </div>
-    </section>
+
+        <div class="row g-4 mt-3">
+
+            <?php
+            $sql = "SELECT id, title, description FROM services";
+            $result = mysqli_query($conn, $sql);
+
+            if ($result && mysqli_num_rows($result) > 0):
+
+                while ($service = mysqli_fetch_assoc($result)):
+            ?>
+
+                <div class="col-md-4">
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            <?= htmlspecialchars(
+                                str_pad($service['id'], 2, '0', STR_PAD_LEFT)
+                            ) ?>
+                        </div>
+
+                        <h4>
+                            <?= htmlspecialchars($service['title']) ?>
+                        </h4>
+
+                        <p>
+                            <?= htmlspecialchars($service['description']) ?>
+                        </p>
+
+                    </div>
+                </div>
+
+            <?php
+                endwhile;
+
+            else:
+            ?>
+
+                <div class="col-12 text-center">
+                    <p>Data services belum tersedia.</p>
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+    </div>
+</section>
+
 
     <!-- ABOUT ME & PERFORMANCE -->
 
@@ -301,7 +314,10 @@
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8">
 
-                    <form class="contact-form" action="#contact" method="post">
+
+
+
+                    <form class="contact-form" action="proses_contact.php" method="POST">
                         <div class="row g-3">
 
                             <div class="col-md-6">
@@ -309,7 +325,7 @@
                                     Nama
                                 </label>
                                 <input type="text" id="contactName" name="name" class="form-control"
-                                    placeholder="Masukkan nama" required>
+                                    placeholder="Masukkan nama" maxlength="100" required>
                             </div>
 
                             <div class="col-md-6">
@@ -317,7 +333,15 @@
                                     Email
                                 </label>
                                 <input type="email" id="contactEmail" name="email" class="form-control"
-                                    placeholder="nama@email.com" required>
+                                    placeholder="nama@email.com" maxlength="150" required>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="contactMessage" class="form-label">
+                                    Pesan
+                                </label>
+                                <textarea id="contactMessage" name="message" class="form-control" rows="5"
+                                    placeholder="Tuliskan pesan kamu..." required></textarea>
                             </div>
 
                             <div class="col-12">
@@ -327,9 +351,12 @@
                                     </button>
                                 </div>
                             </div>
-                            
-                            </div> <!-- Penutup row g-3 -->
-                            </form>
+
+                        </div>
+                    </form>
+
+
+
 
                     <p class="contact-note mt-3">
                         Catatan: formulir ini masih berupa tampilan.

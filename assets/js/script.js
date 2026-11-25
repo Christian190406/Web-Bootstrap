@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-  
+
     // =====================================
     // 2. AUTO SCROLL
     // =====================================
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Menentukan menu aktif saat halaman pertama dibuka
     setActiveMenu();
 
-
+    
     // =====================================
     // 3. CHART.JS PERFORMANCE
     // =====================================
@@ -114,55 +114,92 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (chartCanvas && typeof Chart !== "undefined") {
 
-        const data = {
-            labels: [
-                "Web Development",
-                "Mechatronics",
-                "Programming"
-            ],
+        fetch("performance_data.php", {
+            cache: "no-store"
+        })
 
-            datasets: [{
-                label: "Performance",
-                data: [40, 35, 25],
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Gagal mengambil data database");
+            }
 
-                backgroundColor: [
-                    "rgb(255, 138, 61)",
-                    "rgb(54, 162, 235)",
-                    "rgb(75, 192, 120)"
-                ],
+            return response.json();
+        })
 
-                borderWidth: 0,
-                hoverOffset: 8
-            }]
-        };
+        .then(result => {
 
-        const config = {
-            type: "doughnut",
+            if (!Array.isArray(result) || result.length === 0) {
+                throw new Error("Data performance kosong");
+            }
 
-            data: data,
+            // Mengambil kategori dari database
+            const labels = result.map(item => item.category);
 
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
+            // Mengambil persentase dari database
+            const percentages = result.map(item =>
+                Number(item.percentage)
+            );
 
-                plugins: {
-                    legend: {
-                        position: "bottom",
+            // Membuat chart
+            new Chart(chartCanvas, {
 
-                        labels: {
-                            color: "#202f3f",
-                            padding: 15
+                type: "doughnut",
+
+                data: {
+                    labels: labels,
+
+                    datasets: [{
+                        label: "Performance",
+
+                        data: percentages,
+
+                        backgroundColor: [
+                            "rgb(255, 138, 61)",
+                            "rgb(54, 162, 235)",
+                            "rgb(75, 192, 120)"
+                        ],
+
+                        borderWidth: 0,
+                        hoverOffset: 8
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+
+                            labels: {
+                                color: "#202f3f",
+                                padding: 15
+                            }
+                        },
+
+                        tooltip: {
+                            enabled: true,
+
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ": " +
+                                        context.parsed + "%";
+                                }
+                            }
                         }
-                    },
-
-                    tooltip: {
-                        enabled: true
                     }
                 }
-            }
-        };
 
-        new Chart(chartCanvas, config);
+            });
+
+        })
+
+        .catch(error => {
+            console.error("Performance Chart Error:", error);
+        });
+
     }
+
 
 });
